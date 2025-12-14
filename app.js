@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
-
+const Campground = require('./models/campground')
 const methodOverride = require('method-override')
 mongoose.connect('mongodb://localhost:27017/yelp-camp')
 
@@ -15,10 +15,14 @@ const app = express();
 app.set('view engine', 'ejs')
 app.set('views',path.join(__dirname,'views'))
 
+app.get('/campgrounds',async (req,res)=>{
+    const campgrounds = await Campground.find()
+    res.render('campgrounds/index.ejs',{campgrounds})
+})
 
 app.get('/home', (req,res)=>{
     res.render('home.ejs')
-})
+}) 
 
 
 app.listen(3000, () => {

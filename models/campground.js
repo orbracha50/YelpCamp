@@ -6,7 +6,8 @@ const CampgroundSchema = new Schema({
     price: Number,
     description: String,
     location : String,
-    avilable: true
+    avilable: Boolean
 })
 
 module.exports = mongoose.model('Campground',CampgroundSchema)
+
