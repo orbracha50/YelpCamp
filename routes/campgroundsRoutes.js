@@ -3,7 +3,8 @@ const Campground = require('../models/campground');
 const router = express.Router()
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError')
-const { isLoggedIn,validateCampground,validateReview,isAuthor } = require('../middleware.js')
+const { isLoggedIn,validateCampground,isAuthor } = require('../middleware.js');
+const { populate } = require('../models/review.js');
 
 router.get('/', catchAsync(async (req, res) => {
     const campgrounds = await Campground.find({});
@@ -15,17 +16,15 @@ router.get('/addCamp',isLoggedIn, (req, res) => {
 
 router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const campground = new Campground(req.body.campground);
-    campground.author = req.user._id
+    campground.author = req.user
     await campground.save();
     req.flash('success', 'Successfully made a new campground!');
     res.redirect(`/campgrounds/${campground._id}`)
 }))
 
 router.get('/:id', catchAsync(async (req, res,) => {
-    const campground = await Campground.findById(req.params.id).populate('reviews').populate('author');
-    console.log(campground)
-    const currentUser = req.user._id
-    console.log(currentUser)
+    const campground = await Campground.findById(req.params.id).populate({path:'reviews',populate: 'author'}).populate('author');
+    const currentUser = (req.user) ? req.user : ''
     if (!campground) {
         req.flash('error', 'Cannot find that campground!');
         return res.redirect('/campgrounds');
