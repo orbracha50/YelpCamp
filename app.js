@@ -61,20 +61,38 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 app.use((req, res, next) => {
-
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
     res.locals.loginUser = req.user;
     next();
 })
 
+app.use((req, res, next) => {
+  const r = res.render, d = res.redirect, s = res.send;
+
+  res.render = function (...a) {
+    console.log('RENDER:', req.method, req.originalUrl, 'headersSent?', res.headersSent);
+    return r.apply(this, a);
+  };
+
+  res.redirect = function (...a) {
+    console.log('REDIRECT:', req.method, req.originalUrl, '->', a[0], 'headersSent?', res.headersSent);
+    return d.apply(this, a);
+  };
+
+  res.send = function (...a) {
+    console.log('SEND:', req.method, req.originalUrl, 'headersSent?', res.headersSent);
+    return s.apply(this, a);
+  };
+
+  next();
+});
+
 app.use('/', userRoute)
 app.use('/campgrounds', campgroundRoute)
 app.use('/campgrounds/:id/reviews', reviewRoute)
 
-app.get('/', (req, res) => {
-    res.render('home')
-});
+
 
 app.all(/(.*)/, (req, res, next) => {
     next(new ExpressError('Page Not Found', 404))
