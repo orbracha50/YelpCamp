@@ -6,6 +6,9 @@ const ExpressError = require('../utils/ExpressError')
 const { isLoggedIn, validateCampground, isAuthor } = require('../middleware.js');
 const { populate } = require('../models/review.js');
 const campgrounds = require('../controllers/campground.js');
+const multer = require('multer');
+const { storage } = require('../cloudinary');
+const upload = multer({ storage })
 
 router.route('/')
     .get(catchAsync(campgrounds.index))
