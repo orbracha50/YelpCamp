@@ -7,8 +7,8 @@ const Campground = require('../models/campground')
 mongoose.connect('mongodb://localhost:27017/yelp-camp')
 
 const db = mongoose.connection;
-db.on('error', console.error.bind(console,'connetion error:'));
-db.once('open',()=>{
+db.on('error', console.error.bind(console, 'connetion error:'));
+db.once('open', () => {
     console.log('MONGO DATA CONNECTED!')
 })
 const sample = array => array[Math.floor(Math.random() * array.length)];
@@ -20,11 +20,25 @@ const seedDB = async () => {
         const camp = new Campground({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             name: `${sample(descriptors)} ${sample(places)}`,
-            image: `https://picsum.photos/400?random=${Math.random()}`,
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/dp58bebjn/image/upload/v1766932331/YelpCamp/va32t8yn5ogtquurl1qb.jpg',
+                    filename: 'YelpCamp/va32t8yn5ogtquurl1qb',
+                },
+                {
+                    url: 'https://res.cloudinary.com/dp58bebjn/image/upload/v1766932332/YelpCamp/o54ut9yutdmsqjzuy79h.jpg',
+                    filename: 'YelpCamp/o54ut9yutdmsqjzuy79h',
+                    
+                },
+                {
+                    url: 'https://res.cloudinary.com/dp58bebjn/image/upload/v1766932333/YelpCamp/zy0mjzhr0z8c2e2yjzhg.jpg',
+                    filename: 'YelpCamp/zy0mjzhr0z8c2e2yjzhg',
+                }
+            ],
             description: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero, nostrum iure. Adipisci illum tenetur voluptatibus placeat ut sequi consequatur doloribus corporis fugit? Deleniti sed in, illo ipsam ipsa repudiandae perspiciatis!',
             avilable: true,
             price: random1000,
-            author: '694ad7c82e7852fda1fc28e2' 
+            author: '694ad7c82e7852fda1fc28e2'
         })
         await camp.save();
     }
