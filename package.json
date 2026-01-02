@@ -10,6 +10,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@mapbox/mapbox-sdk": "^0.16.2",
     "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
     "dotenv": "^17.2.3",
@@ -20,6 +21,7 @@
     "flash": "^1.1.0",
     "joi": "^18.0.2",
     "method-override": "^3.0.0",
+    "mongodb": "^7.0.0",
     "mongoose": "^9.0.2",
     "morgan": "^1.10.1",
     "multer": "^1.4.5-lts.1",

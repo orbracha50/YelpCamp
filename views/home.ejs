@@ -1,11 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <name>Home Page</name>
-</head>
-<body>
-    <h1>Welcome to Yelp Camp</h1>
-</body>
-</html>
+<% layout('layouts/boilerplate') %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+
+      <div class="text-center mb-5">
+        <h1 class="fw-bold mb-3">About YelpCamp</h1>
+        <p class="lead">
+          YelpCamp is a community-driven platform for discovering and sharing unique campgrounds across Europe.
+        </p>
+        <p class="text-muted">
+          Our goal is to help travelers find authentic outdoor places, share experiences,
+          and explore nature with confidence.
+        </p>
+      </div>
+
+      <hr class="my-5">
+
+      <div class="text-center">
+        <h2 class="fw-bold mb-3">Contact Us</h2>
+
+        <p class="mb-4 text-muted">
+          Have a question, suggestion, or want to contribute to the project?
+          We’d love to hear from you.
+        </p>
+
+        <div class="d-flex flex-column align-items-center gap-3">
+          <p class="mb-0">
+            📧 <strong>Email:</strong>
+            <a href="mailto:contact@yelp-camp.com">orbracha50@gmail.com</a>
+          </p>
+
+          <p class="mb-0">
+            🌍 <strong>Project:</strong>
+            Open-source learning project built with Node.js & MongoDB
+          </p>
+
+          <p class="mb-0">
+            🧭 <strong>Focus:</strong>
+            Europe-based campgrounds & outdoor travel
+          </p>
+        </div>
+
+        <div class="mt-4">
+          <a href="/campgrounds" class="btn btn-primary btn-lg">
+            Explore Campgrounds
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

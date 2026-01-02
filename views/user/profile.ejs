@@ -1,0 +1,113 @@
+<% layout('layouts/boilerplate') %>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10">
+
+                <div class="card shadow-sm border-0 mb-4">
+                    <div
+                        class="card-body p-4 p-md-5 d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center"
+                                style="width:64px;height:64px;font-size:24px;">
+                                <%= (user.username || 'U' )[0].toUpperCase() %>
+                            </div>
+
+                            <div>
+                                <h1 class="h4 fw-bold mb-1">
+                                    <%= user.username %>
+                                </h1>
+                                <p class="text-muted mb-0">
+                                    <%= user.email %>
+                                </p>
+                                <% if (user.createdAt) { %>
+                                    <small class="text-muted">Member since: <%= user.createdAt.toDateString() %></small>
+                                    <% } %>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2">
+                            <a href="/campgrounds/new" class="btn btn-success">Add Campground</a>
+                            <a href="/logout" class="btn btn-outline-secondary">Logout</a>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <p class="text-muted mb-1">My Campgrounds</p>
+                                <h2 class="fw-bold mb-0">
+                                    <%= stats.campgroundsCount %>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body p-4">
+                                <p class="text-muted mb-1">My Reviews</p>
+                                <h2 class="fw-bold mb-0">
+                                    <%= stats.reviewsCount %>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-end mb-3">
+                    <div>
+                        <h3 class="fw-bold mb-1">My Campgrounds</h3>
+                        <p class="text-muted mb-0">Your latest listings.</p>
+                    </div>
+                    <a href="/campgrounds" class="btn btn-outline-primary">Browse all</a>
+                </div>
+
+                <% if (!campgrounds || campgrounds.length===0) { %>
+                    <div class="alert alert-info">
+                        You don’t have any campgrounds yet. <a href="/campgrounds/new" class="alert-link">Create
+                            one</a>.
+                    </div>
+                    <% } else { %>
+                        <div class="row g-4">
+                            <% campgrounds.forEach(campground=> { %>
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="card h-100 shadow-sm border-0">
+                                        <% const img=(campground.images && campground.images.length) ?
+                                            campground.images[0].url
+                                            : 'https://via.placeholder.com/800x500?text=No+Image' ; %>
+                                            <img src="<%= img %>" class="card-img-top" alt="campground"
+                                                style="height:170px;object-fit:cover;">
+
+                                            <div class="card-body">
+                                                <h5 class="fw-semibold mb-1">
+                                                    <%= campground.name %>
+                                                </h5>
+                                                <p class="text-muted mb-2">
+                                                    <%= campground.location %>
+                                                </p>
+                                                <p class="text-truncate mb-0">
+                                                    <%= campground.description %>
+                                                </p>
+                                            </div>
+
+                                            <div
+                                                class="card-footer bg-white d-flex justify-content-between align-items-center">
+                                                <a href="/campgrounds/<%= campground._id %>"
+                                                    class="btn btn-sm btn-primary">Open</a>
+                                                <a href="/campgrounds/<%= campground._id %>/edit"
+                                                    class="btn btn-sm btn-outline-secondary">Edit</a>
+                                            </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% } %>
+
+            </div>
+        </div>
+    </div>

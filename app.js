@@ -75,7 +75,9 @@ app.use('/', userRoute)
 app.use('/campgrounds', campgroundRoute)
 app.use('/campgrounds/:id/reviews', reviewRoute)
 
-
+app.get('/', (req, res) => {
+  res.render('home', { loginUser: req.user });
+});
 
 app.all(/(.*)/, (req, res, next) => {
   next(new ExpressError('Page Not Found', 404))

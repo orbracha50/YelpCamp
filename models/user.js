@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
 const passportLocalMongoose = require('passport-local-mongoose').default;
 
-console.log('passportLocalMongoose type:', typeof passportLocalMongoose);
-
-const UserSchema = new Schema({
-  email: { type: String, required: true, unique: true }
-});
+const UserSchema = new Schema(
+  {
+    email: { type: String, required: true, unique: true }
+  },
+  { timestamps: true } 
+);
 
 UserSchema.plugin(passportLocalMongoose);
 

@@ -1,17 +1,68 @@
-<% layout('layouts/boilerplate')%>
-    <h1>Sign up</h1>
-    <form action="/register" method="POST" class="validated-form" novalidate>
-        <div class="mb-3">
-            <label class="form-label" for="username">Username</label>
-            <input class="form-control" type="text" id="username" name="username" required>
+<% layout('layouts/boilerplate') %>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-5">
+
+                <div class="card shadow-lg border-0">
+                    <div class="card-body p-4 p-md-5">
+
+                        <!-- Title -->
+                        <div class="text-center mb-4">
+                            <h1 class="h3 fw-bold mb-2">Create an account</h1>
+                            <p class="text-muted mb-0">
+                                Join YelpCamp and start exploring campgrounds
+                            </p>
+                        </div>
+
+                        <form action="/register" method="POST" class="validated-form needs-validation" novalidate>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="username">Username</label>
+                                <input class="form-control form-control-lg" type="text" id="username" name="username"
+                                    required minlength="3" placeholder="Enter username">
+                                <div class="invalid-feedback">
+                                    Username must be at least 3 characters.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email address</label>
+                                <input class="form-control form-control-lg" type="email" id="email" name="email"
+                                    required placeholder="you@example.com">
+                                <div class="invalid-feedback">
+                                    Please enter a valid email.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label" for="password">Password</label>
+                                <input class="form-control form-control-lg" type="password" id="password"
+                                    name="password" required minlength="6" placeholder="At least 6 characters">
+                                <div class="form-text">
+                                    Password must be at least 6 characters long.
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please provide a valid password.
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success btn-lg w-100 mb-3">
+                                Sign Up
+                            </button>
+
+                            <div class="text-center">
+                                <span class="text-muted">Already have an account?</span>
+                                <a href="/login" class="text-decoration-none fw-semibold">
+                                    Sign in
+                                </a>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="mb-3">
-            <label class="form-label" for="email">Email</label>
-            <input class="form-control" type="email" id="email" name="email" required>
-        </div>
-        <div class="mb-3">
-            <label class="form-label" for="password">Password</label>
-            <input class="form-control" type="password" id="password" name="password" required>
-        </div>
-        <button class="btn btn-success">Sign Up</button>
-    </form>
+    </div>

@@ -5,6 +5,9 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/user');
 const { storeReturnTo } = require('../middleware');
 const users = require('../controllers/user')
+const { isLoggedIn } = require('../middleware.js');
+
+router.get('/profile', isLoggedIn, users.profile);
 
 router.route('/register')
     .get(catchAsync(users.renderRegister))

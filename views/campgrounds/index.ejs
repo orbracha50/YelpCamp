@@ -1,31 +1,68 @@
-<% layout('layouts/boilerplate')%>
+<% layout('layouts/boilerplate') %>
 
-    <h1>All Campgrounds</h1>
-    <div>
-        <a href="/campgrounds/addCamp" class=" my-2 btn btn-primary ">Add Campground</a>
+    <link rel="stylesheet" href="/styles/map.css">
+
+    <div class="container-fluid p-0 m-0">
+        <div id="cluster-map"></div>
     </div>
-    <% for (let campground of campgrounds){%>
-        <div class="card" mb-3>
-            <div class="row">
-                <div class="col-md-4">
-                    <img class="img-fluid" alt="" src="<%=campground.images[0].url%>">
-                </div>
-                <div class="col-md-8">
-                    <div class="card-body">
-                        <h5 class="card-name">
-                            <%= campground.name %>
-                        </h5>
-                        <p class="card-text">
-                            <%= campground.description %>
-                        </p>
-                        <p class="card-text">
-                            <small class="text-muted">
-                                <%= campground.location%>
-                            </small>
-                        </p>
-                        <a class="btn btn-primary" href="/campgrounds/<%=campground._id%>">View <%=campground.name%></a>
+
+    <div class="container py-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
+            <div>
+                <h1 class="h3 fw-bold mb-1">Campgrounds</h1>
+                <p class="text-muted mb-0">Explore the map or browse the listings below.</p>
+            </div>
+
+            <% if (loginUser) { %>
+                <a href="/campgrounds/addCamp" class="btn btn-primary">+ Add Campground</a>
+                <% } %>
+        </div>
+
+        <div class="row g-4">
+            <% for (let campground of campgrounds) { %>
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <% const firstImg=(campground.images && campground.images.length) ? campground.images[0].url
+                            : 'https://via.placeholder.com/900x600?text=No+Image' ; %>
+
+                            <img src="<%= firstImg %>" class="card-img-top" alt=""
+                                style="height:200px;object-fit:cover;">
+
+                            <div class="card-body">
+                                <h5 class="fw-semibold mb-1">
+                                    <%= campground.name %>
+                                </h5>
+                                <p class="text-muted mb-2">
+                                    <%= campground.location %>
+                                </p>
+                                <p class="text-truncate mb-3">
+                                    <%= campground.description %>
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge text-bg-success">$<%= campground.price %>/night</span>
+                                    <a class="btn btn-sm btn-primary" href="/campgrounds/<%= campground._id %>">View</a>
+                                </div>
+                            </div>
                     </div>
                 </div>
-            </div>
+                <% } %>
         </div>
-        <% }%>
+    </div>
+
+    <script>
+        window.mapToken = "<%= mapToken %>";
+        window.campgroundsGeoJSON = {
+            type: "FeatureCollection",
+            features: <%- JSON.stringify(
+                campgrounds
+                    .filter(cg => cg.geometry && cg.geometry.coordinates && cg.geometry.coordinates.length === 2)
+                    .map(cg => ({
+                        type: "Feature",
+                        geometry: cg.geometry,
+                        properties: { id: cg._id, title: cg.name }
+                    }))
+            ) %>
+  };
+    </script>
+    <script src="/javascripts/clusterMap.js"></script>

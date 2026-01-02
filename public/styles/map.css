@@ -1,0 +1,11 @@
+#map {
+  width: 100%;
+  height: 260px;
+}
+
+#cluster-map {
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
