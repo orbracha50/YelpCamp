@@ -1,54 +1,87 @@
 <% layout('layouts/boilerplate') %>
 
-<div class="container py-5">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
+<link rel="stylesheet" href="/styles/home.css">
 
-      <div class="text-center mb-5">
-        <h1 class="fw-bold mb-3">About YelpCamp</h1>
-        <p class="lead">
-          YelpCamp is a community-driven platform for discovering and sharing unique campgrounds across Europe.
-        </p>
-        <p class="text-muted">
-          Our goal is to help travelers find authentic outdoor places, share experiences,
-          and explore nature with confidence.
-        </p>
-      </div>
+<section class="home-hero">
+  <div class="home-overlay"></div>
 
-      <hr class="my-5">
+  <div class="container py-5 position-relative">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-9 text-center text-white">
 
-      <div class="text-center">
-        <h2 class="fw-bold mb-3">Contact Us</h2>
+        <span class="badge rounded-pill text-bg-light text-dark mb-3 px-3 py-2">
+          Explore • Share • Discover
+        </span>
 
-        <p class="mb-4 text-muted">
-          Have a question, suggestion, or want to contribute to the project?
-          We’d love to hear from you.
+        <h1 class="display-4 fw-bold mb-3">YelpCamp</h1>
+
+        <p class="lead mb-4">
+          A community-driven place to discover and share unforgettable campgrounds across Europe.
+          Browse real listings, see locations, and add your own spots.
         </p>
 
-        <div class="d-flex flex-column align-items-center gap-3">
-          <p class="mb-0">
-            📧 <strong>Email:</strong>
-            <a href="mailto:contact@yelp-camp.com">orbracha50@gmail.com</a>
-          </p>
-
-          <p class="mb-0">
-            🌍 <strong>Project:</strong>
-            Open-source learning project built with Node.js & MongoDB
-          </p>
-
-          <p class="mb-0">
-            🧭 <strong>Focus:</strong>
-            Europe-based campgrounds & outdoor travel
-          </p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a href="/campgrounds" class="btn btn-success btn-lg px-4">Browse Campgrounds</a>
+          <% if (loginUser) { %>
+            <a href="/campgrounds/addCamp" class="btn btn-outline-light btn-lg px-4">Add Campground</a>
+          <% } else { %>
+            <a href="/register" class="btn btn-outline-light btn-lg px-4">Join Now</a>
+          <% } %>
         </div>
 
-        <div class="mt-4">
-          <a href="/campgrounds" class="btn btn-primary btn-lg">
-            Explore Campgrounds
-          </a>
+        <div class="row g-3 mt-5 text-start">
+          <div class="col-12 col-md-4">
+            <div class="glass-card p-3 p-md-4 h-100">
+              <h3 class="h6 fw-bold mb-2">Find places</h3>
+              <p class="mb-0 text-white-50">Discover campgrounds on the map and explore new regions.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="glass-card p-3 p-md-4 h-100">
+              <h3 class="h6 fw-bold mb-2">Share your spot</h3>
+              <p class="mb-0 text-white-50">Upload photos and help others find beautiful locations.</p>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="glass-card p-3 p-md-4 h-100">
+              <h3 class="h6 fw-bold mb-2">Reviews</h3>
+              <p class="mb-0 text-white-50">Read real feedback and leave your own review.</p>
+            </div>
+          </div>
         </div>
-      </div>
 
+      </div>
     </div>
   </div>
-</div>
+</section>
+
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 align-items-center">
+      <div class="col-lg-6">
+        <h2 class="fw-bold mb-3">About the project</h2>
+        <p class="text-muted mb-3">
+          YelpCamp is built to practice full-stack development while making a useful travel community.
+          It uses Node.js, Express, MongoDB, Passport authentication, Cloudinary images, and Mapbox maps.
+        </p>
+        <p class="text-muted mb-0">
+          Want to contribute ideas? Send us a message and help improve the experience.
+        </p>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-2">Contact</h3>
+            <p class="text-muted mb-3">Questions or suggestions? Reach out:</p>
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">📧 <a href="mailto:contact@yelp-camp.com" class="text-decoration-none">orbracha50@gmail.com.com</a></li>
+              <li class="mb-2">🌍 Europe-focused seed locations</li>
+              <li class="mb-0">🧭 Map + clusters on campgrounds page</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
