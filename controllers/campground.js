@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
 }
 
 module.exports.renderNewForm = (req, res) => {
-    res.render('campgrounds/addcamp');
+    res.render('campgrounds/addCamp.ejs');
 }
 
 module.exports.createCampground = async (req, res, next) => {

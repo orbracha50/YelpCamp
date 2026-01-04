@@ -20,14 +20,16 @@ const campgroundRoute = require('./routes/campgroundsRoutes.js')
 const reviewRoute = require('./routes/reiviewRoutes.js');
 const user = require('./models/user');
 
-const dbUrl = process.env.MONGODB_URL || 'mongodb://localhost:27017/yelp-camp';
-mongoose.connect(dbUrl);
- 
+const dbUrl =
+  process.env.MONGODB_URL ||
+  'mongodb://127.0.0.1:27017/yelp-camp';
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Database connected");
+mongoose.connect(dbUrl);
+
+mongoose.connection.on('error', console.error.bind(console, 'Mongo error:'));
+mongoose.connection.once('open', () => {
+  console.log('Database connected');
+  console.log('Connected DB name:', mongoose.connection.name);
 });
 const app = express();
 
@@ -89,6 +91,9 @@ app.use((err, req, res, next) => {
   if (!err.message) err.message = 'Oh No, Something Went Wrong!'
   res.status(statusCode).render('error', { err })
 })
+
+console.log('DB URL exists:', !!process.env.MONGO_URL, !!process.env.MONGO_URI);
+console.log('Connected DB:', mongoose.connection.name);
 
 app.listen(3000, () => {
   console.log('Serving on port 3000')
