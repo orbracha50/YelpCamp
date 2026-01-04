@@ -22,7 +22,8 @@
             <% for (let campground of campgrounds) { %>
                 <div class="col-12 col-md-6 col-lg-4">
                     <div class="card h-100 shadow-sm border-0">
-                        <% const firstImg='https://via.placeholder.com/900x600?text=No+Image' %>
+                        <% const firstImg=(campground.images && campground.images.length) ? campground.images[0].url
+                            : 'https://via.placeholder.com/900x600?text=No+Image' ; %>
 
                             <img src="<%= firstImg %>" class="card-img-top" alt=""
                                 style="height:200px;object-fit:cover;">
@@ -53,7 +54,7 @@
         window.mapToken = "<%= mapToken %>";
         window.campgroundsGeoJSON = {
             type: "FeatureCollection",
-            features: <% - JSON.stringify(
+            features: <%- JSON.stringify(
                 campgrounds
                     .filter(cg => cg.geometry && cg.geometry.coordinates && cg.geometry.coordinates.length === 2)
                     .map(cg => ({
